@@ -26,7 +26,7 @@ public:
 enum class Direction {
     Forward = FORWARD,
     Backward = BACKWARD,
-    Brake = BRAKE
+    Release = RELEASE
 };
 
 class Car {
@@ -37,7 +37,7 @@ private:
     float gaz;
     Direction dir;
 
-    void motorDir();
+    void motor_work();
 
 public:
     Car();
