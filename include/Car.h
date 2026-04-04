@@ -3,21 +3,6 @@
 
 
 
-// для жёлтого электродвигателя ТТ 1:48
-class Engine {
-public:
-    Engine();
-    float current;
-    float lambda;
-    void setTarget(uint8_t t);
-    void acceleration (float dt);
-
-private:
-    uint8_t target;
-};
-
-
-
 class GearBox {
 private:
     // количество передач
@@ -41,12 +26,11 @@ public:
 enum class Direction {
     Forward = FORWARD,
     Backward = BACKWARD,
-    Release = RELEASE
+    Brake = BRAKE
 };
 
 class Car {
 private:
-    Engine engine;
     GearBox gearbox;
     AF_DCMotor motor;
 
@@ -64,5 +48,4 @@ public:
     void prev();
     // переключение передачи
     void next();
-    void update (float dt);
 };

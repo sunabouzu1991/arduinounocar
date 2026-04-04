@@ -1,26 +1,7 @@
 #include "Car.h"
 #include "AFMotor.h"
 #include "HardwareSerial.h"
-#include "MyMath.h"
 #include <math.h>
-
-
-
-Engine::Engine()
-// ≈99% достижения за 500 мс (4.6 / .5), независимо от FPS/частоты loop
-: current(0), lambda(4.6 / .5), target(0) {}
-
-// для жёлтого электродвигателя ТТ 1:48
-void Engine::acceleration(float dt) {
-	current = damp(current, target, lambda, dt);
-}
-
-void Engine::setTarget(uint8_t t) {
-    target = t;
-
-    Serial.print("target: ");
-    Serial.println(target);
-}
 
 
 
@@ -52,22 +33,25 @@ void GearBox::prev() {
 
 // мотрчик начинает вращение с значения 70
 uint8_t const diapazon = 185;
-
 Car::Car()
-: engine(Engine()), gearbox(GearBox()), motor(AF_DCMotor(1)), gaz(0.0f), dir(Direction::Forward) {}
+: gearbox(GearBox()), motor(AF_DCMotor(1)), gaz(0.0f), dir(Direction::Brake) {}
 
 void Car::motorDir() {
     if (gearbox.value > 0 && dir != Direction::Forward) {
         dir = Direction::Forward;
         motor.run(FORWARD);
+        motor.setSpeed(70 + diapazon*fabsf(gearbox.value*gaz));
     }
     else if (gearbox.value < 0 && dir != Direction::Backward) {
         dir = Direction::Backward;
         motor.run(BACKWARD);
+        motor.setSpeed(70 + diapazon*fabsf(gearbox.value*gaz));
     }
-    else if (gearbox.value == 0 && dir != Direction::Release) {
-        dir = Direction::Release;
-        motor.run(RELEASE);
+    else if (gearbox.value == 0.0 && dir != Direction::Brake) {
+        dir = Direction::Brake;
+        motor.setSpeed(0);
+        motor.run(BRAKE);
+        Serial.println("BRAKE");
     }
 }
 
@@ -75,29 +59,14 @@ void Car::motorDir() {
 
 void Car::setGaz(float g) {
     gaz = g;
-    engine.setTarget(diapazon*fabsf(gearbox.value)*gaz);
 }
 
 void Car::next() {
     gearbox.next();
     motorDir();
-    engine.setTarget(diapazon*fabsf(gearbox.value)*gaz);
 }
 
 void Car::prev() {
     gearbox.prev();
     motorDir();
-    engine.setTarget(diapazon*fabsf(gearbox.value)*gaz);
-}
-
-void Car::update(float dt) {
-    if (gaz) {
-        engine.acceleration(dt);
-        motor.setSpeed(70 + engine.current);
-    }
-
-	Serial.print(" | curSpeed: "); // \r возвращает каретку в начало строки
-	Serial.print(engine.current);
-	Serial.print(" | dt: "); // \r возвращает каретку в начало строки
-	Serial.print(dt);
 }
