@@ -13,6 +13,6 @@ private:
 public:
     Tank(float dist);
 
-    // значения 0..1
+    // x,y = [-1...1]
     void move(float x, float y);
 };
