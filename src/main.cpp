@@ -13,16 +13,25 @@ bool newData = false;
 
 
 void setup() {
-	Serial.begin(115200);
+	Serial.begin(9600);
 }
 
 
 
 void parseData(char* data) {
-	int result = sscanf(data, "%f %f", &x, &y);
-	if (result == 2) {
-		newData = true;
-	}
+    // 1. Извлекаем первое число (до пробела)
+    char* part1 = strtok(data, " "); 
+    if (part1 != NULL) {
+        x = atof(part1); // Преобразуем в float
+
+        // 2. Извлекаем второе число (после пробела)
+		// передаешь NULL, функция понимает: "Ага, мне нужно продолжить работу с той же строкой, которую я запомнила в прошлый раз"
+        char* part2 = strtok(NULL, " ");
+        if (part2 != NULL) {
+            y = atof(part2); // Преобразуем в float
+            newData = true;
+        }
+    }
 }
 
 void readSerial() {
