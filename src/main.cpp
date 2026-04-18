@@ -2,8 +2,6 @@
 
 #include "Arduino.h"
 
-
-
 char buffer[BUFFER_SIZE];
 uint8_t index = 0;
 
@@ -44,9 +42,9 @@ void readSerial() {
 			index = 0;             // сброс буфера
 		} 
 		else {
-			if (index < BUFFER_SIZE - 1) {
+			if (index < BUFFER_SIZE - 1)
 				buffer[index++] = c;
-			} else {
+			else {
 				// переполнение — сброс
 				index = 0;
 			}

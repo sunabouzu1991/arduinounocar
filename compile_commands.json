@@ -150,13 +150,49 @@
         "output": ".pio/build/uno/FrameworkArduino/wiring_shift.c.o"
     },
     {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/libeaa/SoftwareSerial/SoftwareSerial.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard /home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src/SoftwareSerial.cpp",
+        "output": ".pio/build/uno/libeaa/SoftwareSerial/SoftwareSerial.cpp.o"
+    },
+    {
         "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o \".pio/build/uno/libded/Adafruit Motor Shield library/AFMotor.cpp.o\" -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard \".pio/libdeps/uno/Adafruit Motor Shield library/AFMotor.cpp\"",
         "directory": "/home/aset/microcontrollers/learn/Learn",
         "file": ".pio/libdeps/uno/Adafruit Motor Shield library/AFMotor.cpp",
         "output": ".pio/build/uno/libded/Adafruit Motor Shield library/AFMotor.cpp.o"
     },
     {
-        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/main.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/main.cpp",
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/Car.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/Car.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "src/Car.cpp",
+        "output": ".pio/build/uno/src/Car.cpp.o"
+    },
+    {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/MyMath.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/MyMath.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "src/MyMath.cpp",
+        "output": ".pio/build/uno/src/MyMath.cpp.o"
+    },
+    {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/Read.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/Read.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "src/Read.cpp",
+        "output": ".pio/build/uno/src/Read.cpp.o"
+    },
+    {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/Tank.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/Tank.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "src/Tank.cpp",
+        "output": ".pio/build/uno/src/Tank.cpp.o"
+    },
+    {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/Write.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/Write.cpp",
+        "directory": "/home/aset/microcontrollers/learn/Learn",
+        "file": "src/Write.cpp",
+        "output": ".pio/build/uno/src/Write.cpp.o"
+    },
+    {
+        "command": "/home/aset/.platformio/packages/toolchain-atmelavr/bin/avr-g++ -o .pio/build/uno/src/main.cpp.o -c -fno-exceptions -fno-threadsafe-statics -fpermissive -std=gnu++11 -mmcu=atmega328p -Os -Wall -ffunction-sections -fdata-sections -flto -DPLATFORMIO=60119 -DARDUINO_AVR_UNO -DF_CPU=16000000L -DARDUINO_ARCH_AVR -DARDUINO=10808 -Iinclude -Isrc \"-I.pio/libdeps/uno/Adafruit Motor Shield library\" -I/home/aset/.platformio/packages/framework-arduino-avr/libraries/SoftwareSerial/src -I/home/aset/.platformio/packages/framework-arduino-avr/cores/arduino -I/home/aset/.platformio/packages/framework-arduino-avr/variants/standard src/main.cpp",
         "directory": "/home/aset/microcontrollers/learn/Learn",
         "file": "src/main.cpp",
         "output": ".pio/build/uno/src/main.cpp.o"
