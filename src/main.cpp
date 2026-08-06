@@ -1,58 +1,61 @@
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 #include "Tank.h"
+#include "protocol.h"
 
+ControlPacket packet;
 Tank tank;
-SoftwareSerial BTserial(A0, A1); // RX | TX
-int lastX = 512;
-int lastY = 512;
+SoftwareSerial BTserial(A0, A1); // RX, TX
 
-void setup() {
-	Serial.begin(9600);
-    BTserial.begin(9600);
+// Буфер для неблокирующего приёма
+static uint8_t rxBuffer[sizeof(ControlPacket)];
+static uint8_t rxIndex = 0;
+static unsigned long lastByteTime = 0;
+const unsigned long RX_TIMEOUT = 50; // мс – если пакет не собрался за это время, сбрасываем
+
+bool checkCRC(const ControlPacket& p) {
+    return calcCRC(p) == p.crc;
 }
 
+bool receivePacket(ControlPacket& p) {
+    while (BTserial.available()) {
+        uint8_t b = BTserial.read();
+        unsigned long now = millis();
 
+        // Если прошло больше RX_TIMEOUT с последнего байта – сбрасываем накопление
+        if (rxIndex > 0 && (now - lastByteTime) > RX_TIMEOUT) {
+            rxIndex = 0;
+        }
+        lastByteTime = now;
 
-void loop() {
-	// Проверяем, есть ли данные в буфере
-    if (BTserial.available() > 0) {
-        // 1. Считываем ВСЮ строку целиком до символа переноса '\n'
-        String line = BTserial.readStringUntil('\n');
-        line.trim(); // Удаляем символы \r, пробелы и невидимые знаки
+        // Ищем стартовый байт
+        if (rxIndex == 0 && b != 0xAA) {
+            continue;
+        }
 
-        // Проверяем, что строка не пустая и на 2-й позиции (индекс 1) стоит двоеточие
-        // Пример корректной строки: "X:512", "B:1"
-        if (line.length() >= 3 && line.charAt(1) == ':') {
-            
-            char dataType = line.charAt(0);         // 1-й символ (индекс 0) — код типа ('X', 'Y', 'B')
-            String payload = line.substring(2);      // Всё, что идет после двоеточия (с индекса 2)
-            int value = payload.toInt();             // Преобразуем текст в число
+        // Записываем байт
+        rxBuffer[rxIndex++] = b;
 
-            // 2. Обрабатываем данные в зависимости от кода типа
-            switch (dataType) {
-                case 'B': {
-                    
-                    break;
-                }
-
-                case 'X': {
-					lastX = value;
-                    break;
-                }
-
-                case 'Y': {
-					lastY = value;
-                    break;
-                }
-
-                default:
-                    Serial.print("[ОШИБКА] Неизвестный код типа: ");
-                    Serial.println(dataType);
-                    break;
+        // Если собрали полный пакет
+        if (rxIndex == sizeof(ControlPacket)) {
+            memcpy(&p, rxBuffer, sizeof(ControlPacket));
+            rxIndex = 0; // сброс для следующего пакета
+            if (checkCRC(p)) {
+                return true;
             }
+            // Если CRC не совпал – игнорируем, но состояние уже сброшено
         }
     }
+    return false;
+}
 
-	tank.move(lastX, lastY); // Передаем значение Y и значение X из последнего полученного значения
+void setup() {
+    Serial.begin(9600);   // Отладка
+    BTserial.begin(9600); // Bluetooth
+}
+
+void loop() {
+    while (receivePacket(packet)) {
+        tank.move(packet.x, packet.y);
+    }
 }

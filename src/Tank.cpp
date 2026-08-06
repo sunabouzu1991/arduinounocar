@@ -42,15 +42,4 @@ void Tank::move(int x_raw, int y_raw) {
         right_motor.run(RELEASE);
     }
     right_motor.setSpeed(abs(right));
-
-    // Вывод для отладки
-    Serial.print("x_raw: ");
-    Serial.print(x_raw);
-    Serial.print(" | y_raw: ");
-    Serial.print(y_raw);
-    Serial.print(" | leftSpeed: ");
-    Serial.print(left);
-    Serial.print(" | rightSpeed: ");
-    Serial.print(right);
-    Serial.print("    \r"); // Завершаем вывод символом \r и пробелами
 }
