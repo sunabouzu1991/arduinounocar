@@ -1,70 +1,58 @@
-//main
-#define BUFFER_SIZE 32
-
 #include "Arduino.h"
+#include <SoftwareSerial.h>
+#include "Tank.h"
 
-char buffer[BUFFER_SIZE];
-uint8_t index = 0;
-
-float x = 0, y = 0;
-bool newData = false;
-
-
+Tank tank;
+SoftwareSerial BTserial(A0, A1); // RX | TX
+int lastX = 512;
+int lastY = 512;
 
 void setup() {
 	Serial.begin(9600);
-}
-
-
-
-void parseData(char* data) {
-    // 1. Извлекаем первое число (до пробела)
-    char* part1 = strtok(data, " "); 
-    if (part1 != NULL) {
-        x = atof(part1); // Преобразуем в float
-
-        // 2. Извлекаем второе число (после пробела)
-		// передаешь NULL, функция понимает: "Ага, мне нужно продолжить работу с той же строкой, которую я запомнила в прошлый раз"
-        char* part2 = strtok(NULL, " ");
-        if (part2 != NULL) {
-            y = atof(part2); // Преобразуем в float
-            newData = true;
-        }
-    }
-}
-
-void readSerial() {
-	if (Serial.available() > 0) {
-		char c = Serial.read();
-
-		if (c == '\n') {
-			buffer[index] = '\0';  // завершаем строку
-			parseData(buffer);
-			index = 0;             // сброс буфера
-		} 
-		else {
-			if (index < BUFFER_SIZE - 1)
-				buffer[index++] = c;
-			else {
-				// переполнение — сброс
-				index = 0;
-			}
-		}
-	}
+    BTserial.begin(9600);
 }
 
 
 
 void loop() {
-	readSerial();
+	// Проверяем, есть ли данные в буфере
+    if (BTserial.available() > 0) {
+        // 1. Считываем ВСЮ строку целиком до символа переноса '\n'
+        String line = BTserial.readStringUntil('\n');
+        line.trim(); // Удаляем символы \r, пробелы и невидимые знаки
 
-	if (newData) {
-		newData = false;
+        // Проверяем, что строка не пустая и на 2-й позиции (индекс 1) стоит двоеточие
+        // Пример корректной строки: "X:512", "B:1"
+        if (line.length() >= 3 && line.charAt(1) == ':') {
+            
+            char dataType = line.charAt(0);         // 1-й символ (индекс 0) — код типа ('X', 'Y', 'B')
+            String payload = line.substring(2);      // Всё, что идет после двоеточия (с индекса 2)
+            int value = payload.toInt();             // Преобразуем текст в число
 
-		// тут используешь значения БЕЗ задержек
-		Serial.print("x=");
-		Serial.print(x);
-		Serial.print(" y=");
-		Serial.println(y);
-	}
+            // 2. Обрабатываем данные в зависимости от кода типа
+            switch (dataType) {
+                case 'B': {
+                    
+                    break;
+                }
+
+                case 'X': {
+					lastX = value;
+                    break;
+                }
+
+                case 'Y': {
+					lastY = value;
+                    break;
+                }
+
+                default:
+                    Serial.print("[ОШИБКА] Неизвестный код типа: ");
+                    Serial.println(dataType);
+                    break;
+            }
+        }
+    }
+
+	tank.move(lastX, lastY); // Передаем значение Y и значение X из последнего полученного значения
 }
