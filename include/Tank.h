@@ -5,8 +5,10 @@
 
 class Tank {
 private:
-    AF_DCMotor left_motor;
-    AF_DCMotor right_motor;
+    AF_DCMotor left_f;
+    AF_DCMotor right_f;
+    AF_DCMotor left_b;
+    AF_DCMotor right_b;
 
 public:
     Tank();

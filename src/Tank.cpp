@@ -3,7 +3,7 @@
 #include "AFMotor.h"
 
 Tank::Tank()
-: left_motor(AF_DCMotor(1)), right_motor(AF_DCMotor(2)) {}
+: left_f(AF_DCMotor(1)), right_f(AF_DCMotor(2)), left_b(AF_DCMotor(3)), right_b(AF_DCMotor(4)){}
 
 void Tank::move(int x_raw, int y_raw) {
     // 1. Приводим сырые значения джойстика [0..1023] к диапазону [-512..511] (центр в 0)
@@ -25,23 +25,31 @@ void Tank::move(int x_raw, int y_raw) {
 
     // 5. Управление левым мотором
     if (left > 0) {
-        left_motor.run(FORWARD);
+        left_f.run(FORWARD);
+        left_b.run(FORWARD);
     } else if (left < 0) {
-        left_motor.run(BACKWARD);
+        left_f.run(BACKWARD);
+        left_b.run(BACKWARD);
     } else {
-        left_motor.run(RELEASE);
+        left_f.run(RELEASE);
+        left_b.run(RELEASE);
     }
-    left_motor.setSpeed(abs(left));
+    left_f.setSpeed(abs(left));
+    left_b.setSpeed(abs(left));
 
     // 6. Управление правым мотором (инвертируем направление, если моторы установлены зеркально)
     if (right > 0) {
-        right_motor.run(BACKWARD);
+        right_f.run(BACKWARD);
+        right_b.run(BACKWARD);
     } else if (right < 0) {
-        right_motor.run(FORWARD);
+        right_f.run(FORWARD);
+        right_b.run(FORWARD);
     } else {
-        right_motor.run(RELEASE);
+        right_f.run(RELEASE);
+        right_b.run(RELEASE);
     }
-    right_motor.setSpeed(abs(right));
+    right_f.setSpeed(abs(right));
+    right_b.setSpeed(abs(right));
 
 
 
