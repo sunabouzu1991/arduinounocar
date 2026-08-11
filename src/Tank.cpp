@@ -33,13 +33,26 @@ void Tank::move(int x_raw, int y_raw) {
     }
     left_motor.setSpeed(abs(left));
 
-    // 6. Управление правым мотором
+    // 6. Управление правым мотором (инвертируем направление, если моторы установлены зеркально)
     if (right > 0) {
-        right_motor.run(FORWARD);
-    } else if (right < 0) {
         right_motor.run(BACKWARD);
+    } else if (right < 0) {
+        right_motor.run(FORWARD);
     } else {
         right_motor.run(RELEASE);
     }
     right_motor.setSpeed(abs(right));
+
+
+
+    // Вывод для отладки
+    Serial.print("x_raw: ");
+    Serial.print(x_raw);
+    Serial.print(" | y_raw: ");
+    Serial.print(y_raw);
+    Serial.print(" | left: ");
+    Serial.print(left);
+    Serial.print(" | right: ");
+    Serial.print(right);
+    Serial.print("    \r"); // Завершаем вывод символом \r и пробелами
 }

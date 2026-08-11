@@ -11,7 +11,7 @@ SoftwareSerial BTserial(A0, A1); // RX, TX
 static uint8_t rxBuffer[sizeof(ControlPacket)];
 static uint8_t rxIndex = 0;
 static unsigned long lastByteTime = 0;
-const unsigned long RX_TIMEOUT = 50; // мс – если пакет не собрался за это время, сбрасываем
+const unsigned long RX_TIMEOUT = 80; // мс – если пакет не собрался за это время, сбрасываем
 
 bool checkCRC(const ControlPacket& p) {
     return calcCRC(p) == p.crc;
@@ -51,7 +51,7 @@ bool receivePacket(ControlPacket& p) {
 
 void setup() {
     Serial.begin(9600);   // Отладка
-    BTserial.begin(9600); // Bluetooth
+    BTserial.begin(19200); // Bluetooth
 }
 
 void loop() {
