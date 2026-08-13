@@ -3,7 +3,7 @@
 #include "AFMotor.h"
 
 Tank::Tank()
-: left_f(AF_DCMotor(1)), right_f(AF_DCMotor(2)), left_b(AF_DCMotor(3)), right_b(AF_DCMotor(4)){}
+: left_f(AF_DCMotor(1)), right_f(AF_DCMotor(2)), left_b(AF_DCMotor(4)), right_b(AF_DCMotor(3)){}
 
 void Tank::move(int x_raw, int y_raw) {
     // 1. Приводим сырые значения джойстика [0..1023] к диапазону [-512..511] (центр в 0)
@@ -50,17 +50,4 @@ void Tank::move(int x_raw, int y_raw) {
     }
     right_f.setSpeed(abs(right));
     right_b.setSpeed(abs(right));
-
-
-
-    // Вывод для отладки
-    Serial.print("x_raw: ");
-    Serial.print(x_raw);
-    Serial.print(" | y_raw: ");
-    Serial.print(y_raw);
-    Serial.print(" | left: ");
-    Serial.print(left);
-    Serial.print(" | right: ");
-    Serial.print(right);
-    Serial.print("    \r"); // Завершаем вывод символом \r и пробелами
 }
